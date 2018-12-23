@@ -1,5 +1,8 @@
+#!/usr/bin/python3
+
 from classes.game import Person, bcolors
 from classes.magic import Spell
+from classes.inventory import Item
 
 # Create Black Magic
 fire = Spell("Fire", 10, 100, "black")
@@ -12,11 +15,25 @@ quake = Spell("Quake", 14, 140, "black")
 cure = Spell("Cure", 12, 120, "white")
 cura = Spell("Cura", 18, 200, "white")
 
+# Create some items
+potion = Item("Potion", "potion", "Heals 50 HP", 50)
+hi_potion = Item("Hi-Potion", "potion", "Heals 100 HP", 100)
+super_potion = Item("Super Potion", "potion", "Heals 500 HP", 500)
+elixer = Item("Elixer", "elixer",
+              "Fully restores HP/MP of one party member", 9999)
+hi_elixer = Item("Mega-Elixer", "elixer",
+                 "Fully restores party's HP/MP", 9999)
+grenade = Item("Grenade", "attack", "Deals 500 damage", 500)
+
+
 player_magic = [fire, blizzard, thunder, meteor, quake, cure, cura]
+player_items = [potion, hi_potion, super_potion, elixer,
+                hi_elixer, grenade]
+enemy_items = []
 enemy_magic = []
 
-player = Person(460, 65, 60, 34, player_magic)
-enemy = Person(999, 65, 45, 25, enemy_magic)
+player = Person(460, 65, 60, 34, player_magic, player_items)
+enemy = Person(999, 65, 45, 25, enemy_magic, enemy_magic)
 
 i = 0
 running = True
@@ -77,7 +94,7 @@ while running:
           str(player.get_max_hp()) + bcolors.ENDC)
 
     print("Your MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" +
-          str(player.get_max_mp())+ bcolors.ENDC)
+          str(player.get_max_mp()) + bcolors.ENDC)
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You win!" + bcolors.ENDC)
